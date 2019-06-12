@@ -5,19 +5,19 @@
 
 
 import pyglet as pyg
-pyg.options['vsync'] = False
+pyg.options['vsync'] = True
 import BarGraph as bg
 import Sorts
 import random as rand
 from time import sleep
 
-xy = (int(1280/2), int(720/2))
+xy = (int(1920), int(1080))
 win = pyg.window.Window(width=xy[0], height=xy[1])
 
 if __name__ == '__main__':
     reset = True
     margin = 0
-    min, max, count, step = 22, 880, 16*16, 22
+    min, max, count, step = 22, 880, 16*2, 22
     bargraph = bg.BarGraph([], (0, 0), margin)
     bargraph.randomize(min, max, count, step)
     bargraph.reset_colors()
@@ -36,10 +36,10 @@ if __name__ == '__main__':
         fps_display.draw()
 
     def update(dt):
-        #triangle = pyg.media.procedural.Triangle(dt,
-        #                                frequency=bargraph.array[bargraph.get_cursor(1)],
-        #                                envelope=flat_env)
-        #triangle.play()
+        triangle = pyg.media.procedural.Triangle(dt,
+                                        frequency=bargraph.array[bargraph.get_cursor(1)],
+                                        envelope=flat_env)
+        triangle.play()
         if Sorts.selectionsort(bargraph, True) and reset:
             bargraph.randomize(min, max, count)
 
